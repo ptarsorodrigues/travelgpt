@@ -37,7 +37,7 @@ interface Photo {
 
 interface TagData {
   tag_id: number;
-  tags: { name: string };
+  tags: { name: string }[];
 }
 
 interface Hour {
@@ -92,7 +92,7 @@ export default function LocalPage() {
           .select('tag_id, tags(name)')
           .eq('listing_id', id);
         if (tagData) {
-          setTags(tagData.map((t: TagData) => t.tags?.name).filter(Boolean));
+          setTags(tagData.map((t: TagData) => t.tags?.[0]?.name).filter(Boolean));
         }
 
         const { data: hourData } = await supabase
